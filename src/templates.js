@@ -21,9 +21,9 @@ const templates = {
   passwordUpdateRequest: {
     text: _.template(
       'Hello <%= context.username %>,<br>' +
-      'You can find the link to reset your password below. If you did not request ' +
+      'You can find the link to update your password below. If you did not request ' +
       'this email, feel free to ignore it.<br><br>' +
-      '<a href="<%= env.SITE_URL %>recover"><%= env.SITE_URL %>recover</a>',
+      '<a href="<%= env.SITE_URL %>password/update?token=<%= context.token %>">Update the password</a>',
       {
         variable: 'context',
         imports: {
@@ -31,6 +31,20 @@ const templates = {
         }
       }
     ),
-    subject: 'Password reset',
+    subject: 'Password update',
+  },
+  emailConfirmedUpdateRequest: {
+    text: _.template(
+      'Hello <%= context.username %>,<br>' +
+      'Please follow the link below to confirm your email address.<br><br>' +
+      '<a href="<%= env.SITE_URL %>email/confirm?token=<%= context.token %>">Confirm your email</a>',
+      {
+        variable: 'context',
+        imports: {
+          env: process.env
+        }
+      }
+    ),
+    subject: 'Confirm your email',
   }
 }
